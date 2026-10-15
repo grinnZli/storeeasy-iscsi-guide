@@ -29,7 +29,7 @@ bash
 sudo tee /etc/yum.repos.d/mcp.repo <<'EOF'
 [mcp]
 name=Management Component Pack
-baseurl=https://downloads.linux.hpe.com/repo/mcp/Alma/9/x86_64/current/
+baseurl=https://downloads.linux.hpe.com/SDR/repo/mcp/Alma/9/x86_64/current/
 enabled=1
 gpgcheck=0
 EOF
