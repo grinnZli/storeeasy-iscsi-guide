@@ -1,6 +1,3 @@
-## `05-raid-rebuild.md`
-
-```markdown
 # 05. Пересборка RAID-массивов
 
 [← Назад к оглавлению](README.md)

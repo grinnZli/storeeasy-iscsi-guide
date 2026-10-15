@@ -1,5 +1,3 @@
-##  `04-network-bond.md`
-
 # 04. Сеть: Bond LACP + Jumbo Frames
 
 [← Назад к оглавлению](README.md)
