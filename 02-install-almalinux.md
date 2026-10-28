@@ -10,7 +10,7 @@
 ```bash
 sudo dd if=AlmaLinux-9.x-x86_64-dvd.iso of=/dev/sdX bs=4M status=progress
 sync
-
+```
 
 💡 Альтернатива: Minimal ISO (~1.5 ГБ) — быстрее, но требует интернета при установке.
 
@@ -42,16 +42,19 @@ Hostname: alma-storage
 Пользователь: создайте root и рабочего пользователя
 
 6. Проверка установки
-bash
+```bash
 lsblk -o NAME,SIZE,TYPE,MOUNTPOINT,MODEL
 cat /proc/mdstat
-Ожидаемый результат:
+```
 
+Ожидаемый результат:
 text
 md127 : active raid1 sda1[0] sdb1[1]
 md122 : active raid1 sda2[0] sdb2[1]
-...
+
 7. Первичное обновление
-bash
+
+```bash
 sudo dnf update -y
 sudo reboot
+```

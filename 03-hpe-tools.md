@@ -9,7 +9,7 @@
 ```bash
 sudo dnf install -y pciutils
 lspci -nnk | grep -i -A3 -E 'raid|storage|scsi|sas'
-
+```
 
 Ожидаемый результат:
 
@@ -25,7 +25,7 @@ b1:00.0 Serial Attached SCSI controller [0107]: Adaptec Smart Storage PQI SAS [9
 Драйвер smartpqi уже в ядре AlmaLinux 9 — установка не требуется.
 
 2. Подключение репозитория HPE MCP
-bash
+```bash
 sudo tee /etc/yum.repos.d/mcp.repo <<'EOF'
 [mcp]
 name=Management Component Pack
@@ -36,16 +36,20 @@ EOF
 
 sudo dnf clean all
 sudo dnf makecache
+```
+
 3. Установка утилит управления
-bash
+```bash
 sudo dnf install -y ssacli amsd
+```
 Пакет	Назначение
 ssacli	Управление Smart Array (RAID)
 amsd	Agentless Management Service (iLO)
 4. Настройка связи iLO ↔ ОС
-bash
+```bash
 sudo systemctl enable --now amsd
 systemctl status amsd
+```
 Проверка в iLO
 Откройте веб-интерфейс iLO → System Information → Summary:
 
@@ -57,8 +61,10 @@ Storage	✅ OK
 Если AMS = Not available
 Перезапустите службы:
 
-bash
+```bash
 sudo systemctl restart smad amsd
+```
+
 Если не помогло — сбросьте iLO:
 
 iLO → Information → Diagnostics → Reset iLO
@@ -66,10 +72,11 @@ iLO → Information → Diagnostics → Reset iLO
 Подождите 2–3 минуты.
 
 5. Проверка RAID-конфигурации
-bash
+```bash
 sudo ssacli ctrl all show config
 sudo ssacli ctrl slot=0 ld all show
 sudo ssacli ctrl slot=0 pd all show
+```
 Все диски должны быть в статусе OK.
 
 Далее: Сеть Bond + Jumbo →
