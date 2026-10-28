@@ -1,0 +1,66 @@
+# ============================================================
+# .gitattributes для storeeasy-iscsi-guide
+# Нормализация окончаний строк и защита бинарных файлов
+# ============================================================
+
+# --- Автоопределение текстовых файлов ---
+# Git сам определяет, текстовый файл или бинарный.
+# Текстовые файлы нормализуются в LF в репозитории.
+* text=auto eol=lf
+
+# --- Явно текстовые файлы (Markdown, конфиги, скрипты) ---
+*.md        text eol=lf
+*.markdown  text eol=lf
+*.txt       text eol=lf
+*.rst       text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.json      text eol=lf
+*.toml      text eol=lf
+*.ini       text eol=lf
+*.conf      text eol=lf
+*.cfg       text eol=lf
+*.service   text eol=lf
+*.sh        text eol=lf
+*.bash      text eol=lf
+*.py        text eol=lf
+
+# --- Файлы, которые должны сохранять CRLF (если появятся) ---
+# Раскомментируйте, если в проекте появятся Windows-скрипты
+# *.bat     text eol=crlf
+# *.cmd     text eol=crlf
+# *.ps1     text eol=crlf
+
+# --- Бинарные файлы: запрет на конвертацию и diff ---
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.ico       binary
+*.svg       text eol=lf
+*.pdf       binary
+*.zip       binary
+*.gz        binary
+*.tar       binary
+*.tgz       binary
+*.7z        binary
+*.iso       binary
+*.img       binary
+*.bin       binary
+*.exe       binary
+*.dll       binary
+*.so        binary
+*.rpm       binary
+*.deb       binary
+
+# --- Специфичные для проекта файлы ---
+# Конфигурация targetcli (JSON) — текстовый, LF
+saveconfig.json  text eol=lf
+
+# --- Настройки diff и merge ---
+# Для Markdown показывать diff как текст
+*.md diff=markdown
+
+# --- Linguist: исключить документацию из статистики языков ---
+# (опционально, если не хотите, чтобы Markdown считался "языком")
+# *.md linguist-documentation
