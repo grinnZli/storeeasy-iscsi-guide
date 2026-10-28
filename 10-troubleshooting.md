@@ -4,30 +4,31 @@
 
 ### AMS = `Not available` в iLO
 
-**Причина:** `amsd` не работает или сессия с iLO зависла.
+** Причина:** 
+`amsd` не работает или сессия с iLO зависла.
 
-**Решение:**
+** Решение:**
 ```bash
 sudo systemctl status amsd
 sudo systemctl restart smad amsd
 ```
 Если не помогло — сбросьте iLO (Information → Diagnostics → Reset iLO) и подождите 2–3 минуты.
 
-**hpilo: Open could not dequeue a packet**
-Причина: Известная проблема совместимости hpilo ↔ iLO.
+### hpilo: Open could not dequeue a packet
 
-**Решение:**
+** Причина:** 
+Известная проблема совместимости hpilo ↔ iLO.
 
+** Решение:**
 Обновить amsd до 2.4.1+
-
 Обновить прошивку iLO до актуальной
-
 Сбросить iLO
 
-**502 от зеркал AlmaLinux**
-Причина: Временные проблемы зеркал.
+### 502 от зеркал AlmaLinux
+** Причина: **
+Временные проблемы зеркал.
 
-**Решение: **
+** Решение: **
 добавить репозиторий Яндекса:
 
 ```bash
@@ -62,12 +63,11 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-9
 EOF
 
 sudo dnf clean all && sudo dnf makecache
-
 ```
 
-**targetcli saveconfig: Command not found**
-**Решение:**
+### targetcli saveconfig: Command not found
 
+** Решение:**
 Выйти из интерактивной оболочки (exit)
 
 Выполнить
@@ -76,67 +76,75 @@ sudo targetcli saveconfig
 ```
 Или проверить /etc/target/saveconfig.json — конфигурация может сохраняться автоматически.
 
-** iSCSI-клиент не видит LUN'ы**
+### iSCSI-клиент не видит LUN'ы
+** Решение ** 
 Проверьте по порядку:
+Firewall: 
+```bash 
+sudo firewall-cmd --list-ports | grep 3260
+```
+Служба: 
+```bash
+systemctl status target
+```
 
-Firewall: sudo firewall-cmd --list-ports | grep 3260
-
-Служба: systemctl status target
-
-Портал: sudo targetcli ls /iscsi/.../tpg1/portals
-
-ACL: sudo targetcli ls /iscsi/.../tpg1/acls
-
-LUN'ы: sudo targetcli ls /iscsi/.../tpg1/luns
-
+Портал: 
+```bash
+sudo targetcli ls /iscsi/.../tpg1/portals
+```
+ACL: 
+```bash
+sudo targetcli ls /iscsi/.../tpg1/acls
+```
+LUN'ы: 
+```bash 
+sudo targetcli ls /iscsi/.../tpg1/luns
+```
 MTU 9000 на клиенте
 
 MTU 9000 не работает end-to-end
 Проверьте:
-
 Коммутатор: порты с jumbo frames (mtu 9216 / mtu 9000)
-
 ESXi: vSwitch и vmkernel с MTU 9000
-
 Тест: ping -M do -s 8972 с обеих сторон
 
-mount -a не находит UUID
-Причина: UUID вставлен вместе с угловыми скобками < > из документации.
+### mount -a не находит UUID
 
-Решение: Уберите < и >:
+** Причина:** 
+UUID вставлен вместе с угловыми скобками < > из документации.
+
+**Решение: **
+Уберите < и >:
 
 text
 UUID=b8db36f8-...  /mnt/ssd-data  xfs  defaults,noatime,nodiratime  0 0
 Проверка:
 
-bash
+```bash
 sudo findmnt --verify
-Бонд не поднимается
-Проверьте:
-
+```
+### Бонд не поднимается
+** Решение ** 
 LACP на коммутаторе
-
 MTU на всех slave'ах
-
+```bash
 cat /proc/net/bonding/bond0
+```
 
-Медленная работа iSCSI
-Возможные причины:
-
+### Медленная работа iSCSI
+** Возможные причины:**
 MTU 1500 вместо 9000
-
 write-thru вместо write-back
-
 Один путь (нет MPIO)
-
 Перегруженный RAID
-
 Проверьте:
 
-bash
+```bash
 # Кэш контроллера
 sudo ssacli ctrl slot=0 show detail | grep -i cache
 
 # iSCSI-сессии
 sudo targetcli sessions list
+```
+
 Далее: Приложения →

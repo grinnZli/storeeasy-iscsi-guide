@@ -33,7 +33,7 @@ sudo vgs
 sudo lvs
 sudo vgdisplay vg_sas
 ```
-###4. Сеть
+### 4. Сеть
 ```bash
 cat /proc/net/bonding/bond0
 ip -br a
