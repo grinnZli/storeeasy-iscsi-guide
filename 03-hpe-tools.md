@@ -24,7 +24,7 @@ b1:00.0 Serial Attached SCSI controller [0107]: Adaptec Smart Storage PQI SAS [9
     Kernel modules: smartpqi
 Драйвер smartpqi уже в ядре AlmaLinux 9 — установка не требуется.
 
-2. Подключение репозитория HPE MCP
+### 2. Подключение репозитория HPE MCP
 ```bash
 sudo tee /etc/yum.repos.d/mcp.repo <<'EOF'
 [mcp]
@@ -38,14 +38,15 @@ sudo dnf clean all
 sudo dnf makecache
 ```
 
-3. Установка утилит управления
+### 3. Установка утилит управления
 ```bash
 sudo dnf install -y ssacli amsd
 ```
 Пакет	Назначение
 ssacli	Управление Smart Array (RAID)
 amsd	Agentless Management Service (iLO)
-4. Настройка связи iLO ↔ ОС
+
+### 4. Настройка связи iLO ↔ ОС
 ```bash
 sudo systemctl enable --now amsd
 systemctl status amsd
@@ -71,7 +72,7 @@ iLO → Information → Diagnostics → Reset iLO
 
 Подождите 2–3 минуты.
 
-5. Проверка RAID-конфигурации
+### 5. Проверка RAID-конфигурации
 ```bash
 sudo ssacli ctrl all show config
 sudo ssacli ctrl slot=0 ld all show

@@ -1,8 +1,8 @@
-# 10. Troubleshooting
+### 10. Troubleshooting
 
 [← Назад к оглавлению](README.md)
 
-## AMS = `Not available` в iLO
+### AMS = `Not available` в iLO
 
 **Причина:** `amsd` не работает или сессия с iLO зависла.
 
@@ -10,12 +10,13 @@
 ```bash
 sudo systemctl status amsd
 sudo systemctl restart smad amsd
+```
 Если не помогло — сбросьте iLO (Information → Diagnostics → Reset iLO) и подождите 2–3 минуты.
 
-hpilo: Open could not dequeue a packet
+**hpilo: Open could not dequeue a packet**
 Причина: Известная проблема совместимости hpilo ↔ iLO.
 
-Решение:
+**Решение:**
 
 Обновить amsd до 2.4.1+
 
@@ -23,12 +24,13 @@ hpilo: Open could not dequeue a packet
 
 Сбросить iLO
 
-502 от зеркал AlmaLinux
+**502 от зеркал AlmaLinux**
 Причина: Временные проблемы зеркал.
 
-Решение: добавить репозиторий Яндекса:
+**Решение: **
+добавить репозиторий Яндекса:
 
-bash
+```bash
 sudo tee /etc/yum.repos.d/yandex-almalinux.repo <<'EOF'
 [yandex-baseos]
 name=AlmaLinux $releasever - BaseOS (Yandex)
@@ -60,16 +62,21 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-9
 EOF
 
 sudo dnf clean all && sudo dnf makecache
-targetcli saveconfig: Command not found
-Решение:
+
+```
+
+**targetcli saveconfig: Command not found**
+**Решение:**
 
 Выйти из интерактивной оболочки (exit)
 
-Выполнить sudo targetcli saveconfig
-
+Выполнить
+```bash 
+sudo targetcli saveconfig
+```
 Или проверить /etc/target/saveconfig.json — конфигурация может сохраняться автоматически.
 
-iSCSI-клиент не видит LUN'ы
+** iSCSI-клиент не видит LUN'ы**
 Проверьте по порядку:
 
 Firewall: sudo firewall-cmd --list-ports | grep 3260

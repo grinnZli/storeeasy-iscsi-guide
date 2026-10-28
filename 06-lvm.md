@@ -1,40 +1,46 @@
-# 06. Настройка LVM
+### 06. Настройка LVM
 
 [← Назад к оглавлению](README.md)
 
-## 1. Очистка подписей
+### 1. Очистка подписей
 
 ```bash
 sudo wipefs -a /dev/sdc   # SSD массив (894 ГБ)
 sudo wipefs -a /dev/sdd   # SAS массив (8.7 ТБ)
-2. Создание PV
-bash
+```
+### 2. Создание PV
+```bash
 sudo pvcreate /dev/sdc /dev/sdd
-3. Создание VG
-bash
+```
+### 3. Создание VG
+```bash
 sudo vgcreate vg_ssd /dev/sdc
 sudo vgcreate vg_sas /dev/sdd
-4. Проверка
-bash
+```
+### 4. Проверка
+```bash
 sudo vgs
 sudo pvs
+```
 Ожидаемый результат:
 
 text
 VG      #PV #LV #SN Attr   VSize   VFree
 vg_sas    1   2   0 wz--n- 8.73t   <750.34g
 vg_ssd    1   1   0 wz--n- <894.20g <144.20g
-5. Создание LV
-bash
-sudo lvcreate -L 750G -n lun_ssd1 vg_ssd
 
+### 5. Создание LV
+```bash
+sudo lvcreate -L 750G -n lun_ssd1 vg_ssd
 sudo lvcreate -L 4T -n lun_sas1 vg_sas
 sudo lvcreate -L 4T -n lun_sas2 vg_sas
+```
 💡 Если появилось xfs signature detected ... Wipe it? [y/n] — отвечайте y. Для iSCSI LUN не должно быть ФС на стороне сервера.
 
-6. Проверка
-bash
+### 6. Проверка
+```bash
 sudo lvs
+```
 Ожидаемый результат:
 
 text

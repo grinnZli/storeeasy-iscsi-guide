@@ -2,37 +2,43 @@
 
 [← Назад к оглавлению](README.md)
 
-## 1. Инвентаризация
+### 1. Инвентаризация
 
 ```bash
 sudo ssacli ctrl slot=0 pd all show
+```
 12 дисков:
 
 1I:1:1 – 1I:1:8 — SAS HDD 2.4 ТБ
 
 1I:1:13 – 1I:1:16 — SATA SSD 480 ГБ
 
-2. Смена RAID-уровня (опционально)
+### 2. Смена RAID-уровня (опционально)
 ⚠️ ВНИМАНИЕ: Удаление Logical Drive приводит к полной потере данных на массиве.
 
-Удаление старого массива
-bash
+Удаление старого массив
+```bash
 # Посмотреть LD
 sudo ssacli ctrl slot=0 ld all show
+```
 
-# Удалить LD 2 (RAID 60 из SAS)
+### Удалить LD 2 (RAID 60 из SAS)
+```bash
 sudo ssacli ctrl slot=0 ld 2 delete forced
+```
 Создание нового RAID 10
-bash
+```bash
 sudo ssacli ctrl slot=0 create type=ld \
     drives=1I:1:1-1I:1:8 \
     raid=1+0 \
     ss=128
+	```
 Параметр ss=128 — strip size 128 КБ (оптимально для iSCSI/БД).
 
-3. Проверка
-bash
+### 3. Проверка
+```bash
 sudo ssacli ctrl slot=0 ld all show
+```
 Ожидаемый результат:
 
 text
@@ -47,13 +53,15 @@ Array B
     Size: 8.73 TB
     Fault Tolerance: 1+0
     Status: OK
-4. Идентификация в Linux
-bash
+### 4. Идентификация в Linux
+```bash
 lsblk -o NAME,SIZE,TYPE,MODEL,SERIAL
 sudo blkid
+```
 ⚠️ Имена /dev/sdX нестабильны. Используйте UUID или LABEL.
 
-5. Сравнение RAID-уровней
+### 5. Сравнение RAID-уровней
+
 Параметр	RAID 60	RAID 10
 Ёмкость (8× 2.4 ТБ)	8.73 ТБ (6 дисков)	8.73 ТБ (4 диска)
 Отказоустойчивость	2 диска / пара	1 диск / пара
