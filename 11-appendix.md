@@ -1,9 +1,9 @@
 
-# 11. Приложения
+### 11. Приложения
 
 [← Назад к оглавлению](README.md)
 
-## A. Схема хранения
+#### A. Схема хранения
 ┌─────────────────────────────────────────────────────┐
 │ HPE Smart Array P816i-a SR Gen10 (Embedded) │
 │ │
@@ -48,7 +48,7 @@
 
 text
 
-## B. Итоговая конфигурация
+### B. Итоговая конфигурация
 
 | Компонент | Значение |
 |---|---|
@@ -64,30 +64,36 @@ text
 | iSCSI | targetcli, порт 3260 |
 | Клиенты | 2× VMware ESXi с ACL |
 
-## C. Быстрые команды
+### C. Быстрые команды
 
 ### Сеть
 ```bash
 nmcli -f NAME,DEVICE,TYPE connection show
 ip -br a
 cat /proc/net/bonding/bond0
-RAID
-bash
+```
+### RAID
+```bash
 sudo ssacli ctrl all show config
 sudo ssacli ctrl slot=0 ld all show
 sudo ssacli ctrl slot=0 pd all show
+```
 LVM
-bash
+```bash
 sudo pvs && sudo vgs && sudo lvs
+```
 iSCSI
-bash
+```bash
 sudo targetcli ls
 sudo targetcli sessions list
 sudo ss -tlnp | grep 3260
-D. Полезные ссылки
-AlmaLinux
+```
+
+### D. Полезные ссылки
+AlmaLinux 
 
 HPE MCP репозиторий
+https://downloads.linux.hpe.com/SDR/repo/mcp
 
 targetcli документация
 
