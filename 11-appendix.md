@@ -93,18 +93,9 @@ sudo ss -tlnp | grep 3260
 AlmaLinux 
 
 HPE MCP репозиторий
+
 https://downloads.linux.hpe.com/SDR/repo/mcp
 
 targetcli документация
 
 VMware iSCSI guide
-
-E. Лицензия
-MIT. Используйте на свой страх и риск.
-
-F. Версия
-Версия: 1.0
-
-Дата: 2026-10-14
-
-Автор: grinnzli
