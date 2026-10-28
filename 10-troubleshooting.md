@@ -4,10 +4,10 @@
 
 ### AMS = `Not available` в iLO
 
-** Причина:** 
+**Причина:** 
 `amsd` не работает или сессия с iLO зависла.
 
-** Решение:**
+**Решение:**
 ```bash
 sudo systemctl status amsd
 sudo systemctl restart smad amsd
@@ -16,19 +16,19 @@ sudo systemctl restart smad amsd
 
 ### hpilo: Open could not dequeue a packet
 
-** Причина:** 
+**Причина:** 
 Известная проблема совместимости hpilo ↔ iLO.
 
-** Решение:**
+**Решение:**
 Обновить amsd до 2.4.1+
 Обновить прошивку iLO до актуальной
 Сбросить iLO
 
 ### 502 от зеркал AlmaLinux
-** Причина: **
+**Причина: **
 Временные проблемы зеркал.
 
-** Решение: **
+**Решение: **
 добавить репозиторий Яндекса:
 
 ```bash
@@ -67,7 +67,7 @@ sudo dnf clean all && sudo dnf makecache
 
 ### targetcli saveconfig: Command not found
 
-** Решение:**
+**Решение:**
 Выйти из интерактивной оболочки (exit)
 
 Выполнить
@@ -77,7 +77,7 @@ sudo targetcli saveconfig
 Или проверить /etc/target/saveconfig.json — конфигурация может сохраняться автоматически.
 
 ### iSCSI-клиент не видит LUN'ы
-** Решение ** 
+**Решение** 
 Проверьте по порядку:
 Firewall: 
 ```bash 
@@ -110,10 +110,10 @@ ESXi: vSwitch и vmkernel с MTU 9000
 
 ### mount -a не находит UUID
 
-** Причина:** 
+**Причина:** 
 UUID вставлен вместе с угловыми скобками < > из документации.
 
-**Решение: **
+**Решение:**
 Уберите < и >:
 
 text
@@ -124,7 +124,7 @@ UUID=b8db36f8-...  /mnt/ssd-data  xfs  defaults,noatime,nodiratime  0 0
 sudo findmnt --verify
 ```
 ### Бонд не поднимается
-** Решение ** 
+**Решение** 
 LACP на коммутаторе
 MTU на всех slave'ах
 ```bash
@@ -132,7 +132,7 @@ cat /proc/net/bonding/bond0
 ```
 
 ### Медленная работа iSCSI
-** Возможные причины:**
+**Возможные причины:**
 MTU 1500 вместо 9000
 write-thru вместо write-back
 Один путь (нет MPIO)
