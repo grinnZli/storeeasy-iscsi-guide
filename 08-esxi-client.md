@@ -64,20 +64,15 @@ sudo targetcli /iscsi/iqn.../tpg1/portals create <IP-2> 3260
 sudo targetcli saveconfig
 ```
 **5.2. Настройка на стороне ESXi**
+
 Сценарий А: оба IP-адреса таргета в одной подсети с ESXi
-
 Создайте два VMkernel-адаптера (например, vmk1 и vmk2) в той же подсети, что и порталы таргета.
-
 В vSphere Client: Host → Configure → Storage Adapters → iSCSI Software Adapter → Network Port Binding → добавьте оба VMkernel-адаптера.
-
 Добавьте оба портала в Dynamic Discovery.
-
 Пересканируйте: esxcli storage core adapter rescan --all.
-
 Проверьте пути: esxcli storage core path list — должно быть несколько путей в состоянии Active к одному устройству.
 
 Сценарий Б: IP-адреса таргета в разных подсетях
-
 Port Binding не используется. Вместо этого настройте статические маршруты через нужные VMkernel-адаптеры:
 
 ```bash
